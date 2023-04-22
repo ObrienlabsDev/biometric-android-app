@@ -1,7 +1,7 @@
 package dev.obrienlabs.biometric.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.annotation.SuppressLint
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -9,8 +9,11 @@ import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowInsets
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import dev.obrienlabs.biometric.android.business.*
 import dev.obrienlabs.biometric.android.databinding.ActivityFullscreenBinding
 
 /**
@@ -23,6 +26,7 @@ class FullscreenActivity : AppCompatActivity() {
     private lateinit var fullscreenContent: TextView
     private lateinit var fullscreenContentControls: LinearLayout
     private val hideHandler = Handler(Looper.myLooper()!!)
+    private val httpService: HttpService = HttpService()
 
     @SuppressLint("InlinedApi")
     private val hidePart2Runnable = Runnable {
@@ -101,6 +105,14 @@ class FullscreenActivity : AppCompatActivity() {
     }
 
     private fun toggle() {
+        System.out.println("toggle");
+        val connMgr = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val p1_button = findViewById(R.id.dummy_button) as Button
+        val responseString = httpService.getRequest(connMgr, p1_button);
+
+
+        System.out.println("return: " + responseString);
+        //
         if (isFullscreen) {
             hide()
         } else {
