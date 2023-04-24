@@ -1,11 +1,14 @@
 package dev.obrienlabs.biometric.android
 
 import android.annotation.SuppressLint
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowInsets
@@ -16,17 +19,25 @@ import androidx.appcompat.app.AppCompatActivity
 import dev.obrienlabs.biometric.android.business.*
 import dev.obrienlabs.biometric.android.databinding.ActivityFullscreenBinding
 
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
+ *
+ * https://developer.android.com/guide/topics/sensors/sensors_overview
+ * https://github.com/android/health-samples/blob/main/health-services/MeasureData/app/src/main/java/com/example/measuredata/HealthServicesManager.kt
  */
-class FullscreenActivity : AppCompatActivity() {
+class FullscreenActivity : AppCompatActivity()  {
 
     private lateinit var binding: ActivityFullscreenBinding
     private lateinit var fullscreenContent: TextView
     private lateinit var fullscreenContentControls: LinearLayout
     private val hideHandler = Handler(Looper.myLooper()!!)
     private val httpService: HttpService = HttpService()
+
+    private lateinit var sensorManager: SensorManager
+    //private lateinit sensorService: SensorService = SensorService()
+
 
     @SuppressLint("InlinedApi")
     private val hidePart2Runnable = Runnable {
@@ -93,6 +104,12 @@ class FullscreenActivity : AppCompatActivity() {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         binding.dummyButton.setOnTouchListener(delayHideTouchListener)
+
+
+
+
+
+
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -112,6 +129,12 @@ class FullscreenActivity : AppCompatActivity() {
 
 
         System.out.println("return: " + responseString);
+
+
+        //sensorManager = getSystemService(Context.SENSOR_SERVICE)
+        for (s in (getSystemService(SENSOR_SERVICE) as SensorManager).getSensorList(Sensor.TYPE_ALL))
+            Log.d("Sensor:", s.name)
+
         //
         if (isFullscreen) {
             hide()
