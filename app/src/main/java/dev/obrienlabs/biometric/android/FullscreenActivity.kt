@@ -132,9 +132,10 @@ class FullscreenActivity : AppCompatActivity()  {
 
 
         //sensorManager = getSystemService(Context.SENSOR_SERVICE)
-        for (s in (getSystemService(SENSOR_SERVICE) as SensorManager).getSensorList(Sensor.TYPE_ALL))
+        for (s in (getSystemService(SENSOR_SERVICE) as SensorManager).getSensorList(Sensor.TYPE_ALL)) {
             Log.d("Sensor:", s.name)
-
+            //System.out.println("Sensor s: " + s.name);
+        }
         //
         if (isFullscreen) {
             hide()
