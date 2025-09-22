@@ -31,7 +31,7 @@ public class HttpService {
         //Integer integer = new Integer(2);
         this.button = button;
 
-        String stringUrl = "http://biometric.elasticbeanstalk.com/FrontController?action=latest&u=20230421";
+        String stringUrl = "http://local.obrienlabs.io:8889/nbi/api/latest?user=20250921";
         //ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {

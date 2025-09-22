@@ -28,9 +28,7 @@ public class SensorService {
     private void init() {
         //mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
-
-        /* the location manager is the most vital part it allows access
-         * to location and GPS status services */
+        
         //lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
